@@ -1,0 +1,31 @@
+{
+  "name": "property-pro-lite-api",
+  "version": "1.0.0",
+  "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swaibat/Property-Pro-Lite-Api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swaibat/Property-Pro-Lite-Api/issues"
+  },
+  "homepage": "https://github.com/swaibat/Property-Pro-Lite-Api#readme",
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.0.0-rc.0",
+    "nodemon": "^1.19.1"
+  }
+}
