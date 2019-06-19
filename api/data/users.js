@@ -1,17 +1,13 @@
 export const users = [
-    {
-      status: 200,
-      data: {
-        id: '1',
-        email: 'job@gmail.com',
-        firstName: 'job',
-        lastName: 'ogins',
-        password: 'december',
-        address: 'kigali',
-        phoneNumber: "+23436728282992",
-        isAdmin: true,
-      },
-    },
+  {
+    firstName: "testme",
+    lastName: "test",
+    email: "testme@gmail.com",
+    address: "kampala",
+    phoneNumber: "+256758307272",
+    password: "$2b$10$uEkbO1xqyhy.RJbqtWFAeexBBc2GFuBLK5cO4OmGlTeknPBDiyFWi",
+    isAdmin: false,
+},
     {
       status: 200,
       data: {
