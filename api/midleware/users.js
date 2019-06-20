@@ -1,4 +1,4 @@
-import { users } from '../data/users';
+import { users } from '../data/data';
 import Joi from '@hapi/joi';
 
 export const  checkUserExists = (req, res, next) =>{
@@ -22,9 +22,7 @@ export function inputValidator(req, res, next) {
   const result = Joi.validate(req.body, schema);
   // input validation
   if (result.error) {
-    res.status(400).send({ message: result.error.details[0].message });
-    return;
+    return res.status(400).send({ message: result.error.details[0].message });
   }
-
   next();
 }

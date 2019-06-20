@@ -1,5 +1,5 @@
 import { User } from '../models/users';
-import { users } from '../data/users';
+import { users } from '../data/data';
 import bcrypt from 'bcrypt';
 
 export class UserController {

@@ -1,8 +1,7 @@
 
 import express from 'express';
-import { UserController } from '../controller/usercontroller';
+import { UserController } from '../controller/usersController';
 import{ checkUserExists,inputValidator } from '../midleware/users';
-
 
 const router = express.Router();
 

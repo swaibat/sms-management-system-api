@@ -55,3 +55,5 @@ export const users = [
     phoneNumber: "+23436728282992",
     address: "hoima"
   }
+
+  export const products = []

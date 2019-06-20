@@ -1,4 +1,4 @@
-import {users} from '../data/users'
+import {users} from '../data/data'
 
 export class User{
   constructor(firstName,lastName,email,address,phoneNumber,password){
@@ -8,6 +8,7 @@ export class User{
     this.address = address;
     this.phoneNumber = phoneNumber;
     this.password = password;
+    this.isAdmin = false;
   }
 
   createUser(user){
