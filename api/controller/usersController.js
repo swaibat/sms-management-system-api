@@ -10,8 +10,9 @@ export class UserController {
     const {
       firstName, lastName, email, address, phoneNumber, password,
     } = req.body;
+    const id = users.length + 1;
     const hashPassword = bcrypt.hashSync(password, 10);
-    const userObj = new User(firstName, lastName, email, address, phoneNumber, hashPassword);
+    const userObj = new User(id, firstName, lastName, email, address, phoneNumber, hashPassword);
     userObj.createUser(userObj);
     res.status(201).send({ status: 'success', users });
   }

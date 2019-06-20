@@ -57,4 +57,4 @@ export const testlength = {
   address: 'hoima',
 };
 
-export const products = [];
+export const propertys = [];

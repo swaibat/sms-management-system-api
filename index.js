@@ -1,14 +1,15 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 import userRoutes from './api/routes/users';
-import productRoutes from './api/routes/products';
+// eslint-disable-next-line import/no-unresolved
+import propertyRoutes from './api/routes/property';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/property', propertyRoutes);
 
 // if the page is not found
 app.use((req, res, next) => {
