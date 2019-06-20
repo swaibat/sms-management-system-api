@@ -16,5 +16,7 @@ router.post('/', adsInputValidate, property.postProperty);
 // create property
 router.put('/:Id', property.updateProperty);
 
+// create property
+router.patch('/:Id/sold', property.markSold);
 
 export default router;

@@ -152,27 +152,6 @@ describe('Test property update', () => {
         done();
       });
   });
-
-  // it('check input length', (done) => {
-  //   request(app)
-  //     .post('/api/v1/property')
-  //     .send({
-  //       price: 200,
-  //       city: 'b',
-  //       state: 'testme@gmail.com',
-  //       address: ' bbp',
-  //       type: '3 bedrooms',
-  //       imageUrl: 'images/hose1.jpg',
-  //       status: 'available',
-  //     })
-  //     .set('Accept', 'application/json')
-  //     .end((err, res) => {
-  //       res.status.should.equal(400);
-  //       res.body.message.should.equal('"city" length must be at least 2 characters long');
-  //       done();
-  //     });
-  // });
-
   it('check if property already', (done) => {
     request(app)
       .put('/api/v1/property/9')
@@ -180,6 +159,29 @@ describe('Test property update', () => {
       .end((err, res) => {
         res.status.should.equal(404);
         res.body.message.should.equal('property with given id not Found');
+        done();
+      });
+  });
+});
+
+describe('Test patch method', () => {
+  it('mark property sold', (done) => {
+    request(app)
+      .patch('/api/v1/property/1/sold')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.should.have.property('status', 'sold');
+        done();
+      });
+  });
+  it('check if propert exists', (done) => {
+    request(app)
+      .patch('/api/v1/property/11/sold')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.message.should.equal('property with given id not found');
         done();
       });
   });
