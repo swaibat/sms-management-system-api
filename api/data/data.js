@@ -57,4 +57,13 @@ export const testlength = {
   address: 'hoima',
 };
 
-export const propertys = [];
+export const propertys = [{
+  id: 1,
+  price: 200,
+  city: 'bgg',
+  state: 'testme@gmail.com',
+  address: 'kampala',
+  type: '3 bedrooms',
+  imageUrl: 'images/hose1.jpg',
+  status: 'available',
+}];

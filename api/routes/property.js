@@ -3,7 +3,7 @@ import express from 'express';
 // eslint-disable-next-line import/named
 import { PropertyController } from '../controller/propertyController';
 // eslint-disable-next-line import/named
-import { adsInputValidate } from '../midleware/property';
+import { adsInputValidate } from '../helpers/validator';
 
 
 const router = express.Router();

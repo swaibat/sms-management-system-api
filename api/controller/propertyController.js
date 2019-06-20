@@ -21,7 +21,7 @@ export class PropertyController {
     // eslint-disable-next-line no-shadow
     const property = propertys.find(property => property.id === parseFloat(req.params.Id));
     if (!property) {
-      res.status(404).send({ error: 404, message: 'property with given id Found' });
+      return res.status(404).send({ error: 404, message: 'property with given id not Found' });
     }
     property.price = req.body.price;
     property.address = req.body.address;
