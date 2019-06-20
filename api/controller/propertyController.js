@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable class-methods-use-this */
 import { Property } from '../models/property';
@@ -31,4 +32,15 @@ export class PropertyController {
     property.imageUrl = req.body.imageUrl;
     res.send(property);
   }
+
+  // eslint-disable-next-line consistent-return
+  markSold(req, res) {
+    // eslint-disable-next-line no-shadow
+    const property = propertys.find(property => property.id === parseFloat(req.params.Id));
+    if (!property) {
+      return res.status(404).send({ error: 404, message: 'property with given id not found' });
+    }
+    property.status = 'sold';
+    res.send(property);
+  } 
 }
