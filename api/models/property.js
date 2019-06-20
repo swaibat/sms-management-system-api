@@ -1,9 +1,11 @@
 /* eslint-disable linebreak-style */
-import { products } from '../data/data';
+// eslint-disable-next-line import/named
+import { propertys } from '../data/data';
 
 // eslint-disable-next-line import/prefer-default-export
-export class Product {
-  constructor(price, address, city, state, type, imageUrl) {
+export class Property {
+  constructor(id, price, address, city, state, type, imageUrl) {
+    this.id = id;
     this.price = price;
     this.city = city;
     this.state = state;
@@ -14,7 +16,7 @@ export class Product {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  createProduct(product) {
-    products.push(product);
+  createProperty(property) {
+    propertys.push(property);
   }
 }

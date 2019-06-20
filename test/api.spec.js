@@ -6,14 +6,14 @@ import request from 'supertest';
 // eslint-disable-next-line no-unused-vars
 import should from 'should';
 import userRoutes from '../api/routes/users';
-import productRoutes from '../api/routes/products';
+import propertyRoutes from '../api/routes/property';
 import { testdata, testlength } from '../api/data/data';
 
 const app = express();
 app.use(express.json());
 
 app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/products', productRoutes);
+app.use('/api/v1/property', propertyRoutes);
 
 describe('Test Signup route', () => {
   it('check requires feilds', (done) => {
@@ -88,10 +88,10 @@ describe('User Signin', () => {
   });
 });
 
-describe('Test product create', () => {
+describe('Testproduct create', () => {
   it('checks for required feilds', (done) => {
     request(app)
-      .post('/api/v1/products')
+      .post('/api/v1/property')
       .send({
         price: 200,
       })
@@ -105,7 +105,7 @@ describe('Test product create', () => {
 
   it('check input length', (done) => {
     request(app)
-      .post('/api/v1/products')
+      .post('/api/v1/property')
       .send({
         price: 200,
         city: 'b',
@@ -125,7 +125,7 @@ describe('Test product create', () => {
 
   it('check if post is created', (done) => {
     request(app)
-      .post('/api/v1/products')
+      .post('/api/v1/property')
       .send({
         price: 200,
         city: 'kla',
@@ -137,6 +137,49 @@ describe('Test product create', () => {
       .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(201);
+        done();
+      });
+  });
+});
+
+describe('Test property update', () => {
+  it('checks for updated product', (done) => {
+    request(app)
+      .put('/api/v1/property/1')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        done();
+      });
+  });
+
+  // it('check input length', (done) => {
+  //   request(app)
+  //     .post('/api/v1/property')
+  //     .send({
+  //       price: 200,
+  //       city: 'b',
+  //       state: 'testme@gmail.com',
+  //       address: ' bbp',
+  //       type: '3 bedrooms',
+  //       imageUrl: 'images/hose1.jpg',
+  //       status: 'available',
+  //     })
+  //     .set('Accept', 'application/json')
+  //     .end((err, res) => {
+  //       res.status.should.equal(400);
+  //       res.body.message.should.equal('"city" length must be at least 2 characters long');
+  //       done();
+  //     });
+  // });
+
+  it('check if property already', (done) => {
+    request(app)
+      .put('/api/v1/property/9')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.message.should.equal('property with given id not Found');
         done();
       });
   });

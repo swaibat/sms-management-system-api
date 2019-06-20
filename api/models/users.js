@@ -3,7 +3,8 @@
 import { users } from '../data/data';
 
 export class User {
-  constructor(firstName, lastName, email, address, phoneNumber, password) {
+  constructor(id, firstName, lastName, email, address, phoneNumber, password) {
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
