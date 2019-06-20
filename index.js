@@ -1,12 +1,14 @@
+/* eslint-disable linebreak-style */
 import express from 'express';
-import usersRoute from './api/routes/users';
+import userRoutes from './api/routes/users';
+import productRoutes from './api/routes/products';
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
-app.use('/api/v1/users', usersRoute);
-
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/products', productRoutes);
 
 // if the page is not found
 app.use((req, res, next) => {
@@ -16,8 +18,9 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  res.status(error.status || 500).send({ error: error.status || 500, message: error.message  });
+  res.status(error.status || 500).send({ error: error.status || 500, message: error.message });
   next();
 });
 
-app.listen(PORT,()=>console.log(`listening on port ${PORT}...`))
+// eslint-disable-next-line no-console
+app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
