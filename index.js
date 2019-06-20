@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import express from 'express';
 import userRoutes from './api/routes/users';
 import productRoutes from './api/routes/products';
@@ -9,7 +10,6 @@ app.use(express.json());
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/products', productRoutes);
 
-
 // if the page is not found
 app.use((req, res, next) => {
   const error = new Error('Not found');
@@ -18,8 +18,9 @@ app.use((req, res, next) => {
 });
 
 app.use((error, req, res, next) => {
-  res.status(error.status || 500).send({ error: error.status || 500, message: error.message  });
+  res.status(error.status || 500).send({ error: error.status || 500, message: error.message });
   next();
 });
 
-app.listen(PORT,()=>console.log(`listening on port ${PORT}...`))
+// eslint-disable-next-line no-console
+app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
