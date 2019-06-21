@@ -13,10 +13,13 @@ const property = new PropertyController();
 // create property
 router.post('/', adsInputValidate, property.postProperty);
 
-// create property
+// update property
 router.put('/:Id', property.updateProperty);
 
-// create property
+// mark property as sold
 router.patch('/:Id/sold', property.markSold);
+
+// delete property
+router.delete('/:Id', property.deleteProperty);
 
 export default router;
