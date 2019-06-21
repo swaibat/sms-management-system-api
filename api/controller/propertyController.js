@@ -42,5 +42,17 @@ export class PropertyController {
     }
     property.status = 'sold';
     res.send(property);
+  }
+
+  // eslint-disable-next-line consistent-return
+  deleteProperty(req, res) {
+    // eslint-disable-next-line no-shadow
+    const property = propertys.find(property => property.id === parseFloat(req.params.Id));
+    if (!property) {
+      return res.status(404).send({ error: 404, message: 'property with given id not found' });
+    }
+    const findIndex = propertys.indexOf(property);
+    propertys.splice(findIndex, 1);
+    res.status(200).send({ status: 'success', message: 'property deleted successfully' });
   } 
 }
