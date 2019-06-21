@@ -17,19 +17,17 @@ export class UserController {
     res.status(201).send({ status: 'success', users });
   }
 
+  // eslint-disable-next-line consistent-return
   signIn(req, res) {
     const { email, password } = req.body;
     // eslint-disable-next-line no-shadow
     const user = users.find(user => user.email === email);
-    if (user) {
-      const passCompare = bcrypt.compareSync(password, user.password);
-      if (passCompare) {
-        res.status(200).send({
-          status: '200',
-          message: 'You have signed in successfully',
-        });
-      }
-    }
-    res.status(401).send({ status: '401', message: 'wrong username or password' });
+    if (!user) return res.status(401).send({ status: '401', message: 'wrong username or password' });
+    const passCompare = bcrypt.compareSync(password, user.password);
+    if (!passCompare) return res.status(401).send({ status: '401', message: 'wrong username or password' });
+    res.status(200).send({
+      status: '200',
+      message: 'You have signed in successfully',
+    });
   }
 }

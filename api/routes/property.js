@@ -22,4 +22,7 @@ router.patch('/:Id/sold', property.markSold);
 // delete property
 router.delete('/:Id', property.deleteProperty);
 
+// view all propertys
+router.get('/', property.getAllProperty);
+
 export default router;

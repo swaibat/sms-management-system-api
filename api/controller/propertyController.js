@@ -54,5 +54,10 @@ export class PropertyController {
     const findIndex = propertys.indexOf(property);
     propertys.splice(findIndex, 1);
     res.status(200).send({ status: 'success', message: 'property deleted successfully' });
+  }
+
+  // eslint-disable-next-line consistent-return
+  getAllProperty(req, res) {
+    res.status(200).send({ status: 'success', propertys });
   } 
 }
