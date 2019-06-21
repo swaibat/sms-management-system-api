@@ -210,6 +210,36 @@ describe('Test patch method', () => {
         done();
       });
   });
+  it('view all property', (done) => {
+    request(app)
+      .get('/api/v1/property')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.status.should.equal('success');
+        done();
+      });
+  });
+  it('check if propert exists', (done) => {
+    request(app)
+      .get('/api/v1/property/12')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.message.should.equal('property with given id not found');
+        done();
+      });
+  });
+  it('view specific property', (done) => {
+    request(app)
+      .get('/api/v1/property/1')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        res.body.status.should.equal('success');
+        done();
+      });
+  });
   it('deletes property', (done) => {
     request(app)
       .delete('/api/v1/property/1')
@@ -218,16 +248,6 @@ describe('Test patch method', () => {
         res.status.should.equal(200);
         res.body.status.should.equal('success');
         res.body.message.should.equal('property deleted successfully');
-        done();
-      });
-  });
-  it('view all property', (done) => {
-    request(app)
-      .get('/api/v1/property')
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        res.status.should.equal(200);
-        res.body.status.should.equal('success');
         done();
       });
   });

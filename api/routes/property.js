@@ -4,6 +4,7 @@ import express from 'express';
 import { PropertyController } from '../controller/propertyController';
 // eslint-disable-next-line import/named
 import { adsInputValidate } from '../helpers/validator';
+// import { queryType } from '../midleware/property';
 
 
 const router = express.Router();
@@ -24,5 +25,8 @@ router.delete('/:Id', property.deleteProperty);
 
 // view all propertys
 router.get('/', property.getAllProperty);
+
+// delete property
+router.get('/:Id', property.getPropertyById);
 
 export default router;
