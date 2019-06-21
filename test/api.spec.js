@@ -240,6 +240,15 @@ describe('Test patch method', () => {
         done();
       });
   });
+  it('view specific property', (done) => {
+    request(app)
+      .get('/api/v1/property/1?type=3bedrooms')
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.status.should.equal(200);
+        done();
+      });
+  });
   it('deletes property', (done) => {
     request(app)
       .delete('/api/v1/property/1')

@@ -63,7 +63,7 @@ export const propertys = [{
   city: 'bgg',
   state: 'testme@gmail.com',
   address: 'kampala',
-  type: '3 bedrooms',
+  type: '3bedrooms',
   imageUrl: 'images/hose1.jpg',
   status: 'available',
 }];
