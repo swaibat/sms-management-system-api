@@ -59,5 +59,13 @@ export class PropertyController {
   // eslint-disable-next-line consistent-return
   getAllProperty(req, res) {
     res.status(200).send({ status: 'success', propertys });
-  } 
+  }
+
+  // eslint-disable-next-line consistent-return
+  getPropertyById(req, res) {
+    // eslint-disable-next-line no-shadow
+    const property = propertys.find(property => property.id === parseFloat(req.params.Id));
+    if (!property) return res.status(404).send({ error: 404, message: 'property with given id not found' });
+    res.status(200).send({ status: 'success', property });
+  }
 }
