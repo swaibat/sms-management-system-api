@@ -9,7 +9,7 @@ export function inputValidator(req, res, next) {
     firstName: Joi.string().min(3).required(),
     lastName: Joi.string().min(3).required(),
     address: Joi.string().min(3).required(),
-    phoneNumber: Joi.number().min(7).required(),
+    phoneNumber: Joi.string().min(7).required(),
     password: Joi.string().min(3).required(),
     email: Joi.string().email({ minDomainSegments: 2 }),
   });

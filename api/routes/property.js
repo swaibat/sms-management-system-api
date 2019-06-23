@@ -1,10 +1,10 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
-// eslint-disable-next-line import/named
 import { PropertyController } from '../controller/propertyController';
-// eslint-disable-next-line import/named
 import { adsInputValidate } from '../helpers/validator';
-import { queryType } from '../midleware/property';
+import { queryType, getById, AgentAndOwner } from '../midleware/property';
+import { verifyToken } from '../helpers/protector';
+import { ensureToken, agentCheck } from '../midleware/users';
 
 
 const router = express.Router();
@@ -12,21 +12,21 @@ const router = express.Router();
 const property = new PropertyController();
 
 // create property
-router.post('/', adsInputValidate, property.postProperty);
+router.post('/', verifyToken, ensureToken, agentCheck, adsInputValidate, property.postProperty);
 
-// update property
-router.put('/:Id', property.updateProperty);
+// update his own property
+router.put('/:Id', verifyToken, ensureToken, agentCheck, getById, AgentAndOwner, property.updateProperty);
 
-// mark property as sold
-router.patch('/:Id/sold', property.markSold);
+// mark property as sold (his own)
+router.patch('/:Id/sold', verifyToken, ensureToken, agentCheck, getById, AgentAndOwner, property.markSold);
 
-// delete property
-router.delete('/:Id', property.deleteProperty);
+// delete property(his own)
+router.delete('/:Id', verifyToken, ensureToken, agentCheck, getById, AgentAndOwner, property.deleteProperty);
 
-// view all propertys
+// view all propertys (only available)
 router.get('/', property.getAllProperty);
 
-// delete property
-router.get('/:Id', queryType, property.getPropertyById);
+// get specific property(only available)
+router.get('/:Id', getById, queryType, property.getPropertyById);
 
 export default router;

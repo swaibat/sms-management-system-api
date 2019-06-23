@@ -1,58 +1,52 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
-/* eslint-disable linebreak-style */
-import express from 'express';
 import request from 'supertest';
-// eslint-disable-next-line no-unused-vars
 import should from 'should';
-import userRoutes from '../api/routes/users';
-import propertyRoutes from '../api/routes/property';
 import { testdata, testlength } from '../api/data/data';
+import app from '../index';
 
-const app = express();
-app.use(express.json());
-
-app.use('/api/v1/users', userRoutes);
-app.use('/api/v1/property', propertyRoutes);
 
 describe('Test Signup route', () => {
   it('check requires feilds', (done) => {
     request(app)
       .post('/api/v1/users/auth/signup')
-      .send({
-        email: 'om',
-      })
-      .set('Accept', 'application/json')
-      .expect({
-        message: '"firstName" is required',
-      })
-      .expect(400, done);
+      .send({ email: 'om' })
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.message.should.equal('"firstName" is required');
+        done();
+      });
   });
   it('check input length', (done) => {
     request(app)
       .post('/api/v1/users/auth/signup')
       .send(testlength)
-      .set('Accept', 'application/json')
-      .expect({
-        message: '"firstName" length must be at least 3 characters long',
-      })
-      .expect(400, done);
+      .end((err, res) => {
+        res.status.should.equal(400);
+        res.body.message.should.equal('"firstName" length must be at least 3 characters long');
+        done();
+      });
   });
 
   it('check if user is posted', (done) => {
     request(app)
       .post('/api/v1/users/auth/signup')
       .send(testdata)
-      .set('Accept', 'application/json')
-      .expect(201, done);
+      .end((err, res) => {
+        res.status.should.equal(201);
+        done();
+      });
   });
 
   it('chek if user exists', (done) => {
     request(app)
       .post('/api/v1/users/auth/signup')
       .send(testdata)
-      .set('Accept', 'application/json')
-      .expect(409, done);
+      .end((err, res) => {
+        res.status.should.equal(404);
+        res.body.message.should.equal('You have signed in successfully');
+        done();
+      });
   });
 });
 
@@ -64,7 +58,6 @@ describe('User Signin', () => {
         email: 'testme@gmail.com',
         password: 'kanyanyama01',
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.message.should.equal('You have signed in successfully');
@@ -79,7 +72,6 @@ describe('User Signin', () => {
         email: 'testss@gmail.com',
         password: 'kanyanyama01',
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(401);
         res.body.message.should.equal('wrong username or password');
@@ -94,7 +86,6 @@ describe('User Signin', () => {
         email: 'testme@gmail.com',
         password: 'kanyanyama01s',
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(401);
         res.body.message.should.equal('wrong username or password');
@@ -110,7 +101,6 @@ describe('Testproduct create', () => {
       .send({
         price: 200,
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(400);
         res.body.message.should.equal('"state" is required');
@@ -130,7 +120,6 @@ describe('Testproduct create', () => {
         imageUrl: 'images/hose1.jpg',
         status: 'available',
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(400);
         res.body.message.should.equal('"city" length must be at least 2 characters long');
@@ -149,7 +138,6 @@ describe('Testproduct create', () => {
         type: '3 bedrooms',
         imageUrl: 'images/hose1.jpg',
       })
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(201);
         done();
@@ -161,19 +149,8 @@ describe('Test property update', () => {
   it('checks for updated product', (done) => {
     request(app)
       .put('/api/v1/property/1')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
-        done();
-      });
-  });
-  it('check if property already', (done) => {
-    request(app)
-      .put('/api/v1/property/9')
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.body.message.should.equal('property with given id not Found');
         done();
       });
   });
@@ -183,37 +160,15 @@ describe('Test patch method', () => {
   it('mark property sold', (done) => {
     request(app)
       .patch('/api/v1/property/1/sold')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.should.have.property('status', 'sold');
         done();
       });
   });
-  it('check if propert exists', (done) => {
-    request(app)
-      .patch('/api/v1/property/11/sold')
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.body.message.should.equal('property with given id not found');
-        done();
-      });
-  });
-  it('check if propert exists', (done) => {
-    request(app)
-      .delete('/api/v1/property/12')
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        res.status.should.equal(404);
-        res.body.message.should.equal('property with given id not found');
-        done();
-      });
-  });
   it('view all property', (done) => {
     request(app)
       .get('/api/v1/property')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.status.should.equal('success');
@@ -223,17 +178,15 @@ describe('Test patch method', () => {
   it('check if propert exists', (done) => {
     request(app)
       .get('/api/v1/property/12')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(404);
-        res.body.message.should.equal('property with given id not found');
+        res.body.message.should.equal('property with given id not Found');
         done();
       });
   });
   it('view specific property', (done) => {
     request(app)
       .get('/api/v1/property/1')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.status.should.equal('success');
@@ -243,7 +196,6 @@ describe('Test patch method', () => {
   it('view specific property', (done) => {
     request(app)
       .get('/api/v1/property/1?type=3bedrooms')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         done();
@@ -252,7 +204,6 @@ describe('Test patch method', () => {
   it('deletes property', (done) => {
     request(app)
       .delete('/api/v1/property/1')
-      .set('Accept', 'application/json')
       .end((err, res) => {
         res.status.should.equal(200);
         res.body.status.should.equal('success');
