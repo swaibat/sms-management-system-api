@@ -1,24 +1,16 @@
 import { Property } from '../models/property';
 import { propertys } from '../data/data';
 import { users } from '../data/data';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 export class PropertyController {
   postProperty(req, res) {
-    jwt.verify(req.token, process.env.appSecreteKey, (err, data) => {
-      if (err) return res.status(404).json({ message: err.message });
       const { price, address, city, state, type, imageUrl} = req.body;
       const id = propertys.length + 1;
-      const owner = users.find(user => user.email === data.email)
+      const owner = users.find(user => user.email === res.locals.email)
       const property = new Property(id, parseInt(owner.id), price, address, city, state, type, imageUrl); 
       propertys.push(property);
       return res.status(201).send({ status: 'success', property });
-    });
-    
-  }
+    };
 
   updateProperty(req, res) {
     // eslint-disable-next-line no-shadow

@@ -15,14 +15,18 @@ export const checkUserExists = (req, res, next) => {
 
 // check if real users trying access
 export function ensureToken(req, res, next) {
-  jwt.verify(req.token, process.env.appSecreteKey, (err, user) => {
+  jwt.verify(res.locals.token, process.env.appSecreteKey, (err, user) => {
     if (err) return res.status(404).json({ message: err.message });
+    res.locals.user = user
     next();
+    console.log('passed 2')
   });
 }
 
 export function agentCheck(req, res, next) {
-  const user = users.find(user => user.isAdmin === true);
-  if (!user) return res.status(403).send({error:403, message:'Only agent can access this service'})
+  const agent = users.find(user => user.email === res.locals.user.email)
+  if(!agent) return res.send({error:404, message:'Your details were not correctly stored signup again'})
+  if (agent.isAdmin === false) return res.status(403).send({error:403, message:'Only agent can access this service'})
+  res.locals.email = agent.email
   next();
 }
