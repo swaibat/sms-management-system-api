@@ -19,7 +19,6 @@ export function ensureToken(req, res, next) {
     if (err) return res.status(404).json({ message: err.message });
     res.locals.user = user
     next();
-    console.log('passed 2')
   });
 }
 

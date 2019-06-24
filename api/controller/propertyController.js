@@ -37,15 +37,14 @@ export class PropertyController {
 
   // eslint-disable-next-line consistent-return
   getAllProperty(req, res) {
-    const adAvailable = propertys.filter(property => property.status === 'available');
-    if (!adAvailable) return res.status(404).send({error:404, message:'No adverts found try to check later'})
-    res.status(200).send({ status: 'success', adAvailable });
+    const property = propertys.filter(property => property.status === 'available');
+    if (!property ) return res.status(404).send({error:404, message:'No adverts found try to check later'})
+    res.status(200).send({ status: 'success', property });
   }
 
-  getPropertyById(req, res) {
+  singleProperty(req, res) {
     // eslint-disable-next-line no-shadow
     const { property } = res.locals;
-    if (property.status === 'sold') return res.status(404).send({error:404, message:'the property has either been sold or unavailable'})
     res.status(200).send({ status: 'success', property });
   }
 }

@@ -10,6 +10,16 @@ export const users = [
     phoneNumber: '+256758307272',
     password: '$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',
     isAdmin: true,
+  },
+  {
+    id: 2,
+    firstName: 'agent',
+    lastName: 'admin',
+    email: 'agent@gmail.com',
+    address: 'kampala',
+    phoneNumber: '+256758307272',
+    password: '$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',
+    isAdmin: true,
   }
 ];
 
@@ -44,7 +54,7 @@ export const propertys = [
   status: 'available',
 },
 {
-  id: 1,
+  id: 2,
   owner: 1,
   price: 200,
   city: 'bgg',

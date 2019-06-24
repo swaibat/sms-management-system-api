@@ -6,5 +6,4 @@ export function verifyToken(req, res, next) {
       const bearerToken = bearer[1];
       res.locals.token = bearerToken;
       next();
-      console.log('passed 1');
 }

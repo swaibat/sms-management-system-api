@@ -9,5 +9,6 @@ export class Property {
     this.type = type;
     this.imageUrl = imageUrl;
     this.status = 'available';
+    this.createdOn = Date.now()
   }
 }
