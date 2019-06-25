@@ -14,6 +14,7 @@ const user = new UserController();
 router.post('/auth/signup', inputValidator, checkUserExists, user.signUp);
 
 // signin route
+
 router.post('/auth/signin', user.signIn);
 
 export default router;

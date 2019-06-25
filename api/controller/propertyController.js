@@ -38,7 +38,7 @@ export class PropertyController {
   // eslint-disable-next-line consistent-return
   getAllProperty(req, res) {
     const property = propertys.filter(property => property.status === 'available');
-    if (!property ) return res.status(404).send({error:404, message:'No adverts found try to check later'})
+    // if (!property ) return res.status(404).send({error:404, message:'No adverts found try to check later'})
     res.status(200).send({ status: 'success', property });
   }
 

@@ -20,16 +20,16 @@ export const users = [
     phoneNumber: '+256758307272',
     password: '$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',
     isAdmin: true,
-  }
+  },
 ];
 
 export const testdata = {
-  email: 'and@gmail.com',
-  firstName: 'andy',
-  lastName: 'mona',
-  password: 'january',
-  phoneNumber: '+23436728282992',
-  address: 'hoima',
+  firstName: 'arora',
+  lastName: 'menk',
+  email: 'arora@gmail.com',
+  address: 'kampala',
+  phoneNumber: '07753225633',
+  password: 'arora',
 };
 
 export const testlength = {
@@ -42,26 +42,26 @@ export const testlength = {
 };
 
 export const propertys = [
-{
-  id: 1,
-  owner: 1,
-  price: 200,
-  city: 'bgg',
-  state: 'testme@gmail.com',
-  address: 'kampala',
-  type: '3bedrooms',
-  imageUrl: 'images/hose1.jpg',
-  status: 'available',
-},
-{
-  id: 2,
-  owner: 1,
-  price: 200,
-  city: 'bgg',
-  state: 'testme@gmail.com',
-  address: 'kampala',
-  type: '3bedrooms',
-  imageUrl: 'images/hose1.jpg',
-  status: 'available',
-}
+  {
+    id: 1,
+    owner: 1,
+    price: 200,
+    city: 'bgg',
+    state: 'testme@gmail.com',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'available',
+  },
+  {
+    id: 2,
+    owner: 2,
+    price: 200,
+    city: 'bgg',
+    state: 'testme@gmail.com',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'available',
+  },
 ];
