@@ -13,7 +13,7 @@ app.use('/api/v1/property', propertyRoutes);
 
 // if the page is not found
 app.use((req, res, next) => {
-  const error = new Error('Not found');
+  const error = new Error('Resource your looking for notfound');
   error.status = 404;
   next(error);
 });

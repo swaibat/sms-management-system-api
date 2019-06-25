@@ -1,32 +1,47 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
-// eslint-disable-next-line import/named
 import { PropertyController } from '../controller/propertyController';
-// eslint-disable-next-line import/named
-import { adsInputValidate } from '../helpers/validator';
-import { queryType } from '../midleware/property';
+// import { adsInputValidate } from '../helpers/validator';
+import { queryType, getPropertyById, AgentAndOwner} from '../midleware/property';
+import { verifyToken,ensureToken } from '../helpers/protector';
+import { propertyValidator } from '../helpers/validator';
+import { agentCheck } from '../midleware/users';
 
 
 const router = express.Router();
+router.use(verifyToken,ensureToken)
 // eslint-disable-next-line new-cap
 const property = new PropertyController();
 
 // create property
-router.post('/', adsInputValidate, property.postProperty);
+router.post('/', propertyValidator, agentCheck, property.postProperty);
 
-// update property
-router.put('/:Id', property.updateProperty);
+/** 
+ * @verifyToken check if users provides valid token
+ * @adminCheck  check if users is Agent
+ * @getPropertyById get requested propety
+ * @AgentAndOwner agent should perfom operations on his own property
+ * @perfomOperation if all conditions okay do the operation
+*/
 
-// mark property as sold
-router.patch('/:Id/sold', property.markSold);
+// update his own property
+router.put('/:Id',propertyValidator, agentCheck, getPropertyById, AgentAndOwner, property.updateProperty);
 
-// delete property
-router.delete('/:Id', property.deleteProperty);
+// mark property as sold (his own)
+router.patch('/:Id/sold',agentCheck, getPropertyById, AgentAndOwner, property.markSold);
 
-// view all propertys
+// delete property(his own)
+router.delete('/:Id',agentCheck, getPropertyById, AgentAndOwner, property.deleteProperty);
+
+/** 
+ * @verifyToken check if users provides valid token
+ * @perfomOperation if all conditions okay do the operation
+*/
+
+// view all propertys (only available)
 router.get('/', property.getAllProperty);
 
-// delete property
-router.get('/:Id', queryType, property.getPropertyById);
+// get specific property(only available)
+router.get('/:Id',queryType, getPropertyById, property.singleProperty);
 
 export default router;
