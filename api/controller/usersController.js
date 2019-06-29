@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { User } from '../models/users';
+import { User,Agent, Admin } from '../models/users';
 import { users } from '../data/data';
 
 dotenv.config();
@@ -11,12 +11,20 @@ export class UserController {
     const {firstName, lastName, email, address, phoneNumber, password } = req.body;
     const hashPassword = bcrypt.hashSync(password, 10);
     const id = users.length + 1;
-    const user = new User(id, firstName, lastName, email, address, phoneNumber, hashPassword); 
+    const user = new User(id, firstName, lastName, email, address, phoneNumber, hashPassword);
+    const agent = new Admin(id, firstName, lastName, email, address, phoneNumber, hashPassword);
     const token = jwt.sign({ email, password }, process.env.appSecreteKey, { expiresIn: '500hr' });
     user.token = token;
+    agent.token = token;
+
+    if (req.body.isAdmin){
+      users.push(agent);
+      res.status(201).send({ status: 'success', agent });
+      // console.log(users)
+    }
     users.push(user);
-    // remove user password
     res.status(201).send({ status: 'success', user });
+    // console.log(users)
   }
 
   // eslint-disable-next-line consistent-return

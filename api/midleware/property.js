@@ -12,6 +12,7 @@ export function queryType(req, res, next) {
 // eslint-disable-next-line consistent-return
 export function getPropertyById(req, res, next) {
   res.locals.property = propertys.find(property => property.id === parseFloat(req.params.Id));
+  console.log(res.locals.property)
   if (!res.locals.property) {
     return res.status(404).send({ error: 404, message: 'property with given id not Found' });
   }
@@ -21,7 +22,6 @@ export function getPropertyById(req, res, next) {
 // find if atall that agent owners the advert he wants to do operations on
 export function AgentAndOwner(req, res, next) {
   const { user, property } = res.locals;
-  const owner = users.find(owner => owner.email === user.email);
-  if (owner.id !== property.owner) return res.status(403).send({ error: 403, message: 'Your do not own this property' });
+  if (user.id !== property.owner) return res.status(403).send({ error: 403, message: 'Your do not own this property' });
   next();
 }

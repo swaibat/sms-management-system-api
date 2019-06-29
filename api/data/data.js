@@ -62,6 +62,6 @@ export const propertys = [
     address: 'kampala',
     type: '3bedrooms',
     imageUrl: 'images/hose1.jpg',
-    status: 'available',
+    status: 'sold',
   },
 ];
