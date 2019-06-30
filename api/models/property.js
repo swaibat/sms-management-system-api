@@ -33,6 +33,6 @@ export class Property {
   }
 
   static allProperty(){
-    return propertys.filter(property => property.status === 'available');
+    return propertys
   }
 }

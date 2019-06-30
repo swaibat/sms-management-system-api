@@ -16,16 +16,15 @@ export class PropertyController {
   updateProperty(req, res) {
     // eslint-disable-next-line no-shadow
     const { property } = res.locals;
-    console.log(property)
     const {address,city} = req.body
     const advert = Property.updateProperty(property,address,city);
-    res.send(advert);
+    res.status(200).send({status:200,property:advert});
   }
 
   markSold(req, res) {
       const { property } = res.locals;
       const advert = Property.markPropertySold(property);
-      res.send(advert);
+      res.status(200).send({status:200,property:advert});
   }
 
   deleteProperty(req, res) {
@@ -37,7 +36,7 @@ export class PropertyController {
   // eslint-disable-next-line consistent-return
   getAllProperty(req, res) {
     const property = User.allProperty();
-    res.status(200).send({ status: 'success', property });
+    res.status(200).send({ status: 200, property });
   }
 
   singleProperty(req, res) {

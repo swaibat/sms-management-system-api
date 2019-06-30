@@ -12,7 +12,6 @@ export function queryType(req, res, next) {
 // eslint-disable-next-line consistent-return
 export function getPropertyById(req, res, next) {
   res.locals.property = propertys.find(property => property.id === parseFloat(req.params.Id));
-  console.log(res.locals.property)
   if (!res.locals.property) {
     return res.status(404).send({ error: 404, message: 'property with given id not Found' });
   }

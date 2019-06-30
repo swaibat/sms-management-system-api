@@ -14,7 +14,7 @@ export class User {
     return propertys.filter(property => property.status === 'available');
   }
   static getUserByEmail(email){
-    users.find(u => u.email === email)
+    return users.find(u => u.email === email)
   }
 }
 
@@ -22,8 +22,5 @@ export class Admin extends User {
   constructor(id, firstName, lastName, email, address, phoneNumber, password){
       super(id, firstName, lastName, email, address, phoneNumber, password)
       this.isAdmin = true
-  }
-  static markPropertySold(property){
-    property.status = 'sold';
   }
 }

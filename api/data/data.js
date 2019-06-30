@@ -23,14 +23,26 @@ export const users = [
   },
 ];
 
-export const testdata = {
+export const testdata = [
+  {
   firstName: 'arora',
   lastName: 'menk',
   email: 'arora@gmail.com',
   address: 'kampala',
   phoneNumber: '07753225633',
   password: 'arora',
-};
+  isAdmin: false
+},
+{
+  lastName: 'menk',
+  email: 'arora@gmail.com',
+  address: 'kampala',
+  phoneNumber: '07753225633',
+  password: 'arora',
+  isAdmin: false
+}
+
+];
 
 export const testlength = {
   email: 'an@gg.cc',
