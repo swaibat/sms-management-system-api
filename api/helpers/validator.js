@@ -41,7 +41,7 @@ export function inputValidator(req, res, next) {
     }
     next();
   } catch (error) {
-    if (error.message.match('undefined')) return res.status(400).send({ error: error.status, message: 'All fields are required' });
+    if (error.message.match('undefined')) return res.status(400).send({ error: 400, message: 'All fields are required' });
     error.message = error.message.replace('.match is not a function', '');
     return res.status(400).send({ error: 400, message: `Your ${error.message} is invalid make it a string` });
   }
@@ -82,7 +82,7 @@ export function propertyValidator(req, res, next) {
     }
     next();
   } catch (error) {
-    if (error.message.match('undefined')) return res.status(400).send({ error: error.status, message: 'All fields are required' });
+    if (error.message.match('undefined')) return res.status(400).send({ error: 400, message: 'All fields are required' });
     error.message = error.message.replace('.match is not a function', '');
     return res.status(400).send({ error: 400, message: `Your ${error.message} is invalid make it a string` });
   }

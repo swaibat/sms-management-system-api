@@ -31,9 +31,9 @@ router.delete('/:Id',agentCheck, getPropertyById, AgentAndOwner, property.delete
 */
 
 // view all propertys (only available)
-router.get('/', property.getAllProperty);
+router.get('/',queryType, property.getAllProperty);
 
 // get specific property(only available)
-router.get('/:Id',queryType, getPropertyById, property.singleProperty);
+router.get('/:Id', getPropertyById, property.singleProperty);
 
 export default router;

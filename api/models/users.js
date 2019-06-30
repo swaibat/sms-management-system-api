@@ -10,9 +10,6 @@ export class User {
     this.isAdmin = false;
     this.password = password;
   }
-  static allProperty(){
-    return propertys.filter(property => property.status === 'available');
-  }
   static getUserByEmail(email){
     return users.find(u => u.email === email)
   }

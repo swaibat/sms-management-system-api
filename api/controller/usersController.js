@@ -19,10 +19,10 @@ export class UserController {
 
     if (req.body.isAdmin){
       users.push(agent);
-      res.status(201).send({ status: 201, agent });
+      return res.status(201).send({ status: 201, agent });
     }
     users.push(user);
-    res.status(201).send({ status: 201, user });
+    return res.status(201).send({ status: 201, user });
   }
 
   // eslint-disable-next-line consistent-return
@@ -31,8 +31,8 @@ export class UserController {
     const token = jwt.sign({ email, password }, process.env.appSecreteKey, { expiresIn: '24hr' });
     // eslint-disable-next-line no-shadow
     const user = users.find(user => {return user.email === email && bcrypt.compareSync(password, user.password) });
-    if (!user) return res.status(401).send({ status: '401', message: 'wrong username or password' });
+    if (!user) return res.status(401).send({ status: 401, message: 'wrong username or password' });
     user.token = token;
-    res.status(200).send({ status: 'success', user});
+    res.status(200).send({ status: 200, user});
   }
 }
