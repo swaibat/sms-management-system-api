@@ -4,7 +4,7 @@ import express from 'express';
 import { UserController } from '../controller/usersController';
 import { checkUserExists } from '../midleware/users';
 // eslint-disable-next-line import/named
-import { inputValidator } from '../helpers/validator';
+import { inputValidator } from '../helpers/signupValidator';
 
 const router = express.Router();
 

@@ -4,7 +4,7 @@ import { PropertyController } from '../controller/propertyController';
 // import { adsInputValidate } from '../helpers/validator';
 import { queryType, getPropertyById, AgentAndOwner} from '../midleware/property';
 import { verifyToken,ensureUserToken } from '../helpers/protector';
-import { propertyValidator } from '../helpers/validator';
+import { adsValidator } from '../helpers/adsValidator';
 import { agentCheck } from '../midleware/users';
 
 
@@ -14,7 +14,7 @@ router.use(verifyToken,ensureUserToken)
 const property = new PropertyController();
 
 // create property
-router.post('/', propertyValidator, agentCheck, property.postProperty);
+router.post('/', adsValidator, agentCheck, property.postProperty);
 
 // update his own property
 router.patch('/:Id',getPropertyById, AgentAndOwner, property.updateProperty);
