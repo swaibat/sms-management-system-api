@@ -1,6 +1,4 @@
 language:      node_js
-git:
-  depth:       3
 node_js:
   - "10"
 install:       npm install
@@ -11,6 +9,3 @@ script:
   - npm test
 after_success:
 - npm run coveralls
-
-notifications:
-  email:       false

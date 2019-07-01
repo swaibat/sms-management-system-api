@@ -21,7 +21,6 @@ export function getPropertyById(req, res, next) {
 // find if atall that agent owners the advert he wants to do operations on
 export function AgentAndOwner(req, res, next) {
   const { user, property } = res.locals;
-  const owner = users.find(owner => owner.email === user.email);
-  if (owner.id !== property.owner) return res.status(403).send({ error: 403, message: 'Your do not own this property' });
+  if (user.id !== property.owner) return res.status(403).send({ error: 403, message: 'Your do not own this property' });
   next();
 }

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { User } from '../models/users';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,9 +15,10 @@ export function verifyToken(req, res, next) {
 }
 
 // check if real users trying access
-export function ensureToken(req, res, next) {
-  jwt.verify(res.locals.token, process.env.appSecreteKey, (err, user) => {
-    if (err) return res.status(403).json({ error: 403, message: err.message });
+export function ensureUserToken(req, res, next) {
+  jwt.verify(res.locals.token, process.env.appSecreteKey, (err, data) => {
+    if (err) return res.status(403).json({ error: 403, message: err.message });    
+    const user = User.getUserByEmail(data.email);
     res.locals.user = user;
     next();
   });

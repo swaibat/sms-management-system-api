@@ -23,31 +23,81 @@ export const users = [
   },
 ];
 
-export const testdata = {
-  firstName: 'arora',
-  lastName: 'menk',
-  email: 'arora@gmail.com',
-  address: 'kampala',
-  phoneNumber: '07753225633',
-  password: 'arora',
-};
+export const testdata = [
+  {
+    firstName: 'vella',
+    lastName: 'vella',
+    email: 'vella@gmail.com',
+    address: 'kampala',
+    phoneNumber: '07753225633',
+    password: 'vella',
+    isAdmin: false,
+  },
+  { lastName: 'menk' },
+  { firstName: 1 },
+  {
+    email: 'vella@gmail.com',
+    password: 'vella',
+  },
+  {
+    email: 'amaar@gmail.com',
+    password: 'amaar',
+  },
+  {
+    firstName: 'agenttest',
+    lastName: 'agent',
+    email: 'agenttest@gmail.com',
+    address: 'kampala',
+    phoneNumber: '07753225633',
+    password: 'agenttest',
+    isAdmin: true,
+  },
+  {
+    firstName: 'agent test',
+    lastName: 'agent',
+    email: 'agenttest@gmail.com',
+    address: 'kampala',
+    phoneNumber: '07753225633',
+    password: 'agenttest',
+    isAdmin: true,
+  },
+  {
+    firstName: 'agen',
+    lastName: 'agent',
+    email: 'agenttestgmail.com',
+    address: 'kampala',
+    phoneNumber: '07753225633',
+    password: 'agenttest',
+    isAdmin: true,
+  },
+  {
+    firstName: 'agen',
+    lastName: 'agent',
+    email: 'agenttes@tgmail.com',
+    address: 'kampala',
+    phoneNumber: '0775322',
+    password: 'agenttest',
+    isAdmin: true,
+  },
+  {
+    firstName: 'agen',
+    lastName: 'agent',
+    email: 'agenttes@tgmail.com',
+    address: 'kampala',
+    phoneNumber: '0775322666',
+    password: 'agenttest',
+    isAdmin: 'true',
+  },
 
-export const testlength = {
-  email: 'an@gg.cc',
-  firstName: 'an',
-  lastName: 'mona',
-  password: 'january',
-  phoneNumber: '+23436728282992',
-  address: 'hoima',
-};
+];
 
 export const propertys = [
   {
     id: 1,
     owner: 1,
     price: 200,
-    city: 'bgg',
-    state: 'testme@gmail.com',
+    city: 'gulu',
+    state: 'nothern',
     address: 'kampala',
     type: '3bedrooms',
     imageUrl: 'images/hose1.jpg',
@@ -55,13 +105,71 @@ export const propertys = [
   },
   {
     id: 2,
-    owner: 2,
+    owner: 3,
     price: 200,
-    city: 'bgg',
-    state: 'testme@gmail.com',
+    city: 'anyang',
+    state: 'eastern',
     address: 'kampala',
     type: '3bedrooms',
     imageUrl: 'images/hose1.jpg',
+    status: 'sold',
+  },
+];
+
+export const testAds = [
+  {
+    price: 200,
+    city: 'kampala',
+    state: 'central',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'available',
+  },
+  {
+    price: 200,
+    city: 'kampala',
+    state: 'western',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'sold',
+  },
+  {
+    address: 'nansana',
+    city: 'kampala',
+  },
+  {
+    price: '200',
+  },
+  {
+    price: 200,
+  },
+  {
+    price: 200,
+    city: false,
+    state: 'central',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'available',
+  },
+  {
+    price: 200,
+    city: 'false',
+    state: 'cent ral',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.jpg',
+    status: 'available',
+  },
+  {
+    price: 200,
+    city: 'false',
+    state: 'central',
+    address: 'kampala',
+    type: '3bedrooms',
+    imageUrl: 'images/hose1.mp4',
     status: 'available',
   },
 ];
