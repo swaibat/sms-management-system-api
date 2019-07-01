@@ -217,7 +217,6 @@ describe('/CHECK tokens and relevant middlewares', () => {
       .end((err, res) => {
         res.should.have.status(403);
         res.body.should.be.a('object');
-        // res.body.message.should.property('message').eql('Your do not own this property');
         done();
       });
   });
@@ -228,8 +227,6 @@ describe('/CHECK tokens and relevant middlewares', () => {
       .end((err, res) => {
         res.should.have.status(404);
         res.body.should.be.a('object');
-        // res.body.should.have.property('status').eql(404);
-        // res.body.should.have.property('message').eql('property with given id not Found');
         done();
       });
   });
