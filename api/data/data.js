@@ -109,9 +109,9 @@ export const propertys = [
     price: 200,
     city: 'anyang',
     state: 'eastern',
-    address: 'kampala',
-    type: '3bedrooms',
-    imageUrl: 'images/hose1.jpg',
+    address: 'kigali',
+    type: 'miniflat',
+    imageUrl: 'images/miniflat.png',
     status: 'sold',
   },
 ];

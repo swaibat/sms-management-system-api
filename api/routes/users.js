@@ -3,7 +3,7 @@
 import express from 'express';
 import { UserController } from '../controller/usersController';
 import { checkUserExists } from '../midleware/users';
-// eslint-disable-next-line import/named
+import { createUserToken } from '../helpers/protector';
 import { inputValidator } from '../helpers/signupValidator';
 
 const router = express.Router();
@@ -11,10 +11,10 @@ const router = express.Router();
 const user = new UserController();
 
 // signup route
-router.post('/auth/signup', inputValidator, checkUserExists, user.signUp);
+router.post('/auth/signup', inputValidator, checkUserExists,createUserToken, user.signUp);
 
 // signin route
 
-router.post('/auth/signin', user.signIn);
+router.post('/auth/signin',createUserToken, user.signIn);
 
 export default router;

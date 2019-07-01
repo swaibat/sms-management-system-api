@@ -23,3 +23,10 @@ export function ensureUserToken(req, res, next) {
     next();
   });
 }
+
+export function createUserToken(req, res, next) {
+  const {email, password} = req.body;
+  res.locals.token = jwt.sign({ email, password }, process.env.appSecreteKey, { expiresIn: '1hr' });
+  next()
+}
+
