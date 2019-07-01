@@ -18,6 +18,6 @@ export function inputValidator(req, res, next) {
   } catch (error) {
     if (error.message.match('undefined')) return res.status(400).send({ error: 400, message: 'All fields are required' });
     error.message = error.message.replace('.match is not a function', '');
-    return res.status(400).send({ error: 400, message: `Your ${error.message} is invalid make it a string` });
+    res.status(400).send({ error: 400, message: `Your ${error.message} is invalid make it a string` });
   }
 }
