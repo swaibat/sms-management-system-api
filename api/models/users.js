@@ -1,4 +1,4 @@
-import { propertys, users } from '../data/data';
+import { users } from '../data/data';
 export class User {
   constructor(id, firstName, lastName, email, address, phoneNumber, password) {
     this.id = id;
@@ -20,4 +20,5 @@ export class Admin extends User {
       super(id, firstName, lastName, email, address, phoneNumber, password)
       this.isAdmin = true
   }
+  
 }
