@@ -22,7 +22,7 @@ export class PropertyController {
 
   markSold(req, res) {
       const { property } = res.locals;
-      const Admin = Property.markPropertySold(property);
+      const advert =  Admin.markPropertySold(property);
       res.status(200).send({status:200,property:advert});
   }
 

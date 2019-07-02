@@ -12,7 +12,4 @@ export class Property {
     this.status = 'available';
     this.createdOn = Date.now()
   }
-  createProperty(property){
-    propertys.push(property);
-  }
 }
