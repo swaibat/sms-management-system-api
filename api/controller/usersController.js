@@ -7,23 +7,33 @@ import { users } from '../data/data';
 dotenv.config();
 
 export class UserController {
-  signUp(req, res) {
-    const {firstName, lastName, email, address, phoneNumber, password } = req.body;
+  async signUp(req, res) {
+    const {
+      firstName, lastName, email, address, phoneNumber, password,isAdmin,
+    } = req.body;
     const hashPassword = bcrypt.hashSync(password, 10);
-    const id = users.length + 1;
-    const user = new User(id, firstName, lastName, email, address, phoneNumber, hashPassword);
-    const agent = new Admin(id, firstName, lastName, email, address, phoneNumber, hashPassword);
-    const { token } = res.locals;
-    user.token = token;
-    agent.token = token;
-
-    if (req.body.isAdmin){
-      users.push(agent);
-      return res.status(201).send({ status: 201, agent });
+    const userObj = new User(firstName, lastName, email, address, phoneNumber, hashPassword,isAdmin);
+    try {
+      const user = await userObj.createUser();
+      const token = await jwt.sign({ email }, process.env.appSecreteKey, { expiresIn: '1hr' });
+      res.status(201).send({
+        status: 201,
+        user: {
+          id: user.rows[0].id,
+          firstName: user.rows[0].firstname,
+          lastName: user.rows[0].lastname,
+          email: user.rows[0].email,
+          address: user.rows[0].address,
+          isAdmin: user.rows[0].isadmin,
+          status: user.rows[0].status,
+          token,
+        },
+      });
+    } catch (error) {
+      res.status(400).send({ status: 400, message:error.message });
     }
-    users.push(user);
-    return res.status(201).send({ status: 201, user });
   }
+  
 
   // eslint-disable-next-line consistent-return
   signIn(req, res) {

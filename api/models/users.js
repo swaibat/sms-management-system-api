@@ -1,15 +1,20 @@
 import { users,propertys } from '../data/data';
 import client from '../services/db';
 export class User {
-  constructor(id, firstName, lastName, email, address, phoneNumber, password) {
-    this.id = id;
+  constructor(firstName, lastName, email, address, phoneNumber, password, isAdmin) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.address = address;
     this.phoneNumber = phoneNumber;
-    this.isAdmin = false;
     this.password = password;
+    this.isAdmin = isAdmin;
+  }
+
+  createUser(){
+    const userQuery = 'INSERT INTO users(firstName,lastName,email,address,phoneNumber,password,isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
+    const values = [this.firstName,this.lastName,this.email,this.address,this.phoneNumber,this.password,this.isAdmin];
+    return client.query(userQuery, values) //returns a promise
   }
 
   static getUserByEmail(email){
@@ -25,17 +30,17 @@ export class Admin extends User {
       super(id, firstName, lastName, email, address, phoneNumber, password)
       this.isAdmin = true
   }
-  
+
   static createProperty(){
       const query = 'INSERT INTO property(owner, price, address, city, state, type, imageUrl) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
       const values = [this.owner, this.price, this.address, this.city, this.state, this.type, this.imageUrl];
       return client.query(query, values);    // this returns a promise 
   }
 
-  static updateProperty(property,address,city){
-    property.address = address;
-    property.city = city;
-    return property;
+  static updateProperty(address, state,id){
+    const query = 'UPDATE property SET address=$1,city=$2 WHERE id=$3 RETURNING *'
+    const value = [address, state,id]
+    return client.query(query,value) 
   }
 
   static markPropertySold(property){

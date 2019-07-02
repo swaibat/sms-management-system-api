@@ -17,7 +17,7 @@ export class PropertyController {
     const { property } = res.locals;
     const {address,city} = req.body
     const advert = Admin.updateProperty(property,address,city);
-    res.status(200).send({status:200,property:advert});
+    res.status(200).send({status:200,advert});
   }
 
   markSold(req, res) {

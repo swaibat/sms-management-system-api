@@ -5,7 +5,7 @@ import userRoutes from './api/routes/users';
 import propertyRoutes from './api/routes/property';
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use('/api/v1/users', userRoutes);
