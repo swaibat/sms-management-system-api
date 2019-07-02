@@ -2,6 +2,7 @@ import express from 'express';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import { testdata, testAds } from '../api/data/data';
+// import { testdata, testAds } from '../api/models/users';
 import userRoutes from '../api/routes/users';
 import propertyRoutes from '../api/routes/property';
 
@@ -251,85 +252,12 @@ describe('/VALIDATES all input fields', () => {
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('All fields are required');
+        res.body.should.have.property('status').eql(400);
+        res.body.should.have.property('message').eql("\"firstName\" is required");
         done();
       });
   });
-  it('VALIDATES user input fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/auth/signup')
-      .send(testdata[2])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('Your firstName is invalid make it a string');
-        done();
-      });
-  });
-  it('VALIDATES user input fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/auth/signup')
-      .send(testdata[6])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('Use valid characters with minimum of 3');
-        done();
-      });
-  });
-  it('VALIDATES user input fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/auth/signup')
-      .send(testdata[7])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('Please provide a valid email address');
-        done();
-      });
-  });
-  it('VALIDATES user input fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/auth/signup')
-      .send(testdata[8])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('phone number should be numeric with length of 10 to 13');
-        done();
-      });
-  });
-  it('VALIDATES user input fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/users/auth/signup')
-      .send(testdata[9])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('isAdmin field should be a boolean');
-        done();
-      });
-  });
-  it('VALIDATES property price field', (done) => {
-    chai.request(app)
-      .post('/api/v1/property')
-      .set('Authorization', `Bearer ${agentToken}`)
-      .send(testdata[9])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('price should be a number');
-        done();
-      });
-  });
-  it('VALIDATES property string fields', (done) => {
+  it('VALIDATES property input', (done) => {
     chai.request(app)
       .post('/api/v1/property')
       .set('Authorization', `Bearer ${agentToken}`)
@@ -337,47 +265,6 @@ describe('/VALIDATES all input fields', () => {
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('All fields are required');
-        done();
-      });
-  });
-  it('VALIDATES property string fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/property')
-      .set('Authorization', `Bearer ${agentToken}`)
-      .send(testAds[5])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('Your city is invalid make it a string');
-        done();
-      });
-  });
-  it('VALIDATES property string fields', (done) => {
-    chai.request(app)
-      .post('/api/v1/property')
-      .set('Authorization', `Bearer ${agentToken}`)
-      .send(testAds[6])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('Type, Address, City, State  Use valid characters with minimum of 3');
-        done();
-      });
-  });
-  it('VALIDATES image fomat', (done) => {
-    chai.request(app)
-      .post('/api/v1/property')
-      .set('Authorization', `Bearer ${agentToken}`)
-      .send(testAds[7])
-      .end((err, res) => {
-        res.should.have.status(400);
-        res.body.should.be.a('object');
-        res.body.should.have.property('error').eql(400);
-        res.body.should.have.property('message').eql('provide a supported image format like .jpg .jpeg .png .gif .webp');
         done();
       });
   });
