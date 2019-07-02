@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi';
 
 export function inputValidator(req, res, next) {
-    const schema = Joi.object().keys({
+    const authSchema = Joi.object().keys({
       firstName: Joi.string().min(3).regex(/^[a-zA-Z\-]+$/).required(),
       lastName: Joi.string().min(3).regex(/^[a-zA-Z\-]+$/).required(),
       address: Joi.string().min(3).regex(/^[a-zA-Z0-9]+$/).required(),
@@ -10,10 +10,7 @@ export function inputValidator(req, res, next) {
       email: Joi.string().email({ minDomainSegments: 2 }).required(),
       isAdmin: Joi.boolean(),
   });
-    const result = Joi.validate(req.body, schema);
-    if (result.error) {
-      const errMsg = result.error.details[0].message
-      return res.status(400).send({status:400, message: `${errMsg}` });
-    }
+    const data = Joi.validate(req.body, authSchema);
+    if (data.error)return res.status(400).send({status:400, message: `${data.error.details[0].message}` });
     next();
 }

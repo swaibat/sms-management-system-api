@@ -5,10 +5,9 @@ import { users } from '../data/data';
 
 export class PropertyController {
   postProperty(req, res) {
-      const { price, address, city, state, type, imageUrl} = req.body;
       const id = propertys.length + 1;
       const owner = users.find(user => user.email === res.locals.email)
-      const property = new Property(id, parseInt(owner.id), price, address, city, state, type, imageUrl); 
+      const property = new Property(id, parseInt(owner.id), req.body.price, req.body.address, req.body.city, req.body.state, req.body.type, req.body.imageUrl); 
       property.createProperty(property);
       return res.status(201).send({ status:201, property });
     };
