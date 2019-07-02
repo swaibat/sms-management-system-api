@@ -30,8 +30,7 @@ describe('/POST/signup routes', () => {
         res.body.user.should.have.property('lastName');
         res.body.user.should.have.property('address');
         res.body.should.have.property('status').eql(201);
-        const result = JSON.parse(res.text);
-        userToken = result.user.token;
+        userToken = res.body.user.token;
         done();
       });
   });
@@ -47,8 +46,7 @@ describe('/POST/signup routes', () => {
         res.body.agent.should.have.property('lastName');
         res.body.agent.should.have.property('address');
         res.body.should.have.property('status').eql(201);
-        const result = JSON.parse(res.text);
-        agentToken = result.agent.token;
+        agentToken = res.body.agent.token;
         done();
       });
   });

@@ -1,4 +1,5 @@
 import { users,propertys } from '../data/data';
+import client from '../services/db';
 export class User {
   constructor(id, firstName, lastName, email, address, phoneNumber, password) {
     this.id = id;
@@ -24,8 +25,11 @@ export class Admin extends User {
       super(id, firstName, lastName, email, address, phoneNumber, password)
       this.isAdmin = true
   }
-  static createProperty(property){
-    propertys.push(property);
+  
+  static createProperty(){
+      const query = 'INSERT INTO property(owner, price, address, city, state, type, imageUrl) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
+      const values = [this.owner, this.price, this.address, this.city, this.state, this.type, this.imageUrl];
+      return client.query(query, values);    // this returns a promise 
   }
 
   static updateProperty(property,address,city){
