@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { User,Agent, Admin } from '../models/users';
-import { users } from '../data/data';
+import { User } from '../models/users';
+import "@babel/polyfill";
 
 dotenv.config();
 
@@ -35,13 +35,28 @@ export class UserController {
   }
   
 
-  // eslint-disable-next-line consistent-return
-  signIn(req, res) {
+  async signIn(req, res) {
     const { email, password } = req.body;
-    const { token } = res.locals;
-    const user = users.find(user => {return user.email === email && bcrypt.compareSync(password, user.password) });
-    if (!user) return res.status(401).send({ status: 401, message: 'wrong username or password' });
-    user.token = token;
-    res.status(200).send({ status: 200, user});
+    // check if a user with the given email exist.
+    const user = await User.getUserByEmail(email);
+    if(!user.rows[0]) return res.status(401).send({ status: 401, message: 'wrong username or password' });
+      const passCompare = bcrypt.compareSync(password, user.rows[0].password);
+    if (!passCompare) return res.status(401).send({ status: 401, message: 'wrong username or password' });
+      const token = await jwt.sign({ email: req.body.email }, process.env.appSecreteKey, { expiresIn: '8hr' });
+    res.status(200).send({
+      status: 200,
+      user: {
+        id: user.rows[0].id,
+        firstName: user.rows[0].firstname,
+        lastName: user.rows[0].lastname,
+        email: user.rows[0].email,
+        address: user.rows[0].address,
+        isAdmin: user.rows[0].isadmin,
+        status: user.rows[0].status,
+        token,
+      }
+    });
   }
+
+  
 }

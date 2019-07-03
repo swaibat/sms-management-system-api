@@ -18,8 +18,11 @@ export class User {
   }
 
   static getUserByEmail(email){
-    return users.find(u => u.email === email)
+    const query = 'SELECT * FROM users WHERE email=$1'
+    const values = [email]
+    return client.query(query, values)
   }
+  
   static allProperty(){
     return propertys
   }

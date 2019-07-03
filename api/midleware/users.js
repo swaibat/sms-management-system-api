@@ -3,9 +3,9 @@
 import { User } from '../models/users';
 
 // eslint-disable-next-line consistent-return
-export const checkUserExists = (req, res, next) => {
-  const user = User.getUserByEmail(req.body.email);
-  if (user) return res.status(409).send({error:409, message: 'user already exists'});
+export async function checkUserExists(req, res, next){
+  const user = await User.getUserByEmail(req.body.email);
+  if (user.rows[0]) return res.status(409).send({error:409, message: 'user already exists'});
   next();
 };
 

@@ -27,7 +27,7 @@ export const users = [
     {
       firstName: 'vella',
       lastName: 'vella',
-      email: 'vella@gmail.com',
+      email: 'vellan1@gmail.com',
       address: 'kampala',
       phoneNumber: '07753225633',
       password: 'vella',
