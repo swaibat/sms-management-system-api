@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable import/prefer-default-export */
 import { User } from '../models/users';
 
 // eslint-disable-next-line consistent-return

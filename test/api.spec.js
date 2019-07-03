@@ -76,6 +76,7 @@ describe('/POST/signin routes', () => {
         res.body.user.should.have.property('isAdmin');
         res.body.user.should.have.property('email');
         res.body.should.have.property('status').eql(200);
+        agentToken = res.body.user.token;
         done();
       });
   });
@@ -93,22 +94,22 @@ describe('/POST/signin routes', () => {
   });
 });
 
-// describe('ALL AGENT strict routes', () => {
-//   it('CREATES a new Property', (done) => {
-//     chai.request(app)
-//       .post('/api/v1/property')
-//       .set('Authorization', `Bearer ${agentToken}`)
-//       .send(testAds[0])
-//       .end((err, res) => {
-//         res.should.have.status(201);
-//         res.body.should.be.a('object');
-//         res.body.property.should.be.a('object');
-//         res.body.property.should.have.property('price');
-//         res.body.property.should.have.property('city');
-//         res.body.should.have.property('status').eql(201);
-//         done();
-//       });
-//   });
+describe('ALL AGENT strict routes', () => {
+  it('CREATES a new Property', (done) => {
+    chai.request(app)
+      .post('/api/v1/property')
+      .set('Authorization', `Bearer ${agentToken}`)
+      .send(testAds[0])
+      .end((err, res) => {
+        res.should.have.status(201);
+        res.body.should.be.a('object');
+        res.body.property.should.be.a('object');
+        res.body.property.should.have.property('price');
+        res.body.property.should.have.property('city');
+        res.body.should.have.property('status').eql(201);
+        done();
+      });
+  });
 //   it('UPDATE a Property', (done) => {
 //     chai.request(app)
 //       .patch('/api/v1/property/3')
@@ -265,4 +266,4 @@ describe('/POST/signin routes', () => {
 //         done();
 //       });
 //   });
-// });
+});

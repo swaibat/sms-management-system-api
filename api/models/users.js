@@ -1,4 +1,4 @@
-import { users,propertys } from '../data/data';
+import { users, propertys } from '../data/data';
 import client from '../services/db';
 export class User {
   constructor(firstName, lastName, email, address, phoneNumber, password, isAdmin) {
@@ -11,49 +11,51 @@ export class User {
     this.isAdmin = isAdmin;
   }
 
-  createUser(){
+  createUser() {
     const userQuery = 'INSERT INTO users(firstName,lastName,email,address,phoneNumber,password,isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
-    const values = [this.firstName,this.lastName,this.email,this.address,this.phoneNumber,this.password,this.isAdmin];
-    return client.query(userQuery, values) //returns a promise
+    const values = [this.firstName, this.lastName, this.email, this.address, this.phoneNumber, this.password, this.isAdmin];
+    return client.query(userQuery, values); // returns a promise
   }
 
-  static getUserByEmail(email){
-    const query = 'SELECT * FROM users WHERE email=$1'
-    const values = [email]
-    return client.query(query, values)
+  static getUserByEmail(email) {
+    const query = 'SELECT * FROM users WHERE email=$1';
+    const values = [email];
+    return client.query(query, values);
   }
-  
-  static allProperty(){
-    return propertys
+
+  static queryTypeOfProperty(type) {
+    const query = 'SELECT * FROM property WHERE type=$1 ';
+    const value = [type];
+    return client.query(query, value);
+  }
+
+  static allProperty() {
+    const query = 'SELECT * FROM property ';
+    return client.query(query);
   }
 }
 
 export class Admin extends User {
-  constructor(id, firstName, lastName, email, address, phoneNumber, password){
-      super(id, firstName, lastName, email, address, phoneNumber, password)
-      this.isAdmin = true
+  constructor(id, firstName, lastName, email, address, phoneNumber, password) {
+    super(id, firstName, lastName, email, address, phoneNumber, password);
+    this.isAdmin = true;
   }
 
-  static createProperty(){
-      const query = 'INSERT INTO property(owner, price, address, city, state, type, imageUrl) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
-      const values = [this.owner, this.price, this.address, this.city, this.state, this.type, this.imageUrl];
-      return client.query(query, values);    // this returns a promise 
+  static updateProperty(address, state, id) {
+    const query = 'UPDATE property SET address=$1,city=$2 WHERE id=$3 RETURNING *';
+    const value = [address, state, id];
+    return client.query(query, value);
   }
 
-  static updateProperty(address, state,id){
-    const query = 'UPDATE property SET address=$1,city=$2 WHERE id=$3 RETURNING *'
-    const value = [address, state,id]
-    return client.query(query,value) 
+  static markPropertySold(id) {
+    const query = 'UPDATE property SET status=$1 WHERE id=$2 RETURNING *';
+    const value = ['sold', id];
+    return client.query(query, value);
   }
 
-  static markPropertySold(property){
-    property.status = 'sold';
-    return property;
+  static delProperty(id) {
+    const query = 'DELETE FROM  property WHERE id=$1 RETURNING *';
+    const value = [id];
+    return client.query(query, value);
   }
-
-  static deleteProperty(property){
-    const findIndex = propertys.indexOf(property);
-    propertys.splice(findIndex, 1);
-  }
-  
 }

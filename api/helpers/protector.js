@@ -16,17 +16,17 @@ export function verifyToken(req, res, next) {
 
 // check if real users trying access
 export function ensureUserToken(req, res, next) {
-  jwt.verify(res.locals.token, process.env.appSecreteKey, (err, data) => {
-    if (err) return res.status(403).json({ error: 403, message: err.message });    
-    const user = User.getUserByEmail(data.email);
-    res.locals.user = user;
+  jwt.verify(res.locals.token, process.env.appSecreteKey, async (err, user) => {
+    if (err) return res.status(403).json({ error: 403, message: err.message });
+    const dbUser = await User.getUserByEmail(user.email);
+    res.locals.user = dbUser.rows[0];
     next();
   });
 }
 
 export function createUserToken(req, res, next) {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   res.locals.token = jwt.sign({ email, password }, process.env.appSecreteKey, { expiresIn: '1hr' });
-  next()
+  next();
 }
 

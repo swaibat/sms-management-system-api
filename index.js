@@ -1,7 +1,6 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 import userRoutes from './api/routes/users';
-// eslint-disable-next-line import/no-unresolved
 import propertyRoutes from './api/routes/property';
 
 const app = express();
@@ -24,6 +23,6 @@ app.use((error, req, res, next) => {
 });
 
 // eslint-disable-next-line no-console
-app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
+app.listen(PORT);
 
 export default app;
