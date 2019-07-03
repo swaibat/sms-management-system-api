@@ -5,7 +5,7 @@
     {
       firstName: 'vella',
       lastName: 'vella',
-      email: 'vellan1@gmail.com',
+      email: `${Math.random().toString(35).slice(2)}@gmail.com`,
       address: 'kampala',
       phoneNumber: '07753225633',
       password: 'vella',
@@ -90,6 +90,7 @@
     {
       address: 'nansana',
       city: 'kampala',
+      state: 'kampala',
     },
     {
       price: '200',

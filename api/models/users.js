@@ -41,9 +41,9 @@ export class Admin extends User {
     this.isAdmin = true;
   }
 
-  static updateProperty(address, state, id) {
-    const query = 'UPDATE property SET address=$1,city=$2 WHERE id=$3 RETURNING *';
-    const value = [address, state, id];
+  static updateProperty(address, state, city, id) {
+    const query = 'UPDATE property SET address=$1,city=$2,state=$3 WHERE id=$4 RETURNING *';
+    const value = [address,city, state, id];
     return client.query(query, value);
   }
 
