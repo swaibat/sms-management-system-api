@@ -9,7 +9,7 @@ import { agentCheck } from '../midleware/users';
 
 
 const router = express.Router();
-router.use(verifyToken,ensureUserToken)
+// router.use(verifyToken,ensureUserToken)
 // eslint-disable-next-line new-cap
 const property = new PropertyController();
 
