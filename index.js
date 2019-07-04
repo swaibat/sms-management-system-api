@@ -4,6 +4,7 @@ import userRoutes from './api/routes/users';
 // eslint-disable-next-line import/no-unresolved
 import propertyRoutes from './api/routes/property';
 import cors from 'cors';
+
 const app = express();
 const PORT = process.env.PORT || 8000;
 
