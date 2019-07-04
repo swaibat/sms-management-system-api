@@ -1,15 +1,11 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 import userRoutes from './api/routes/users';
-// eslint-disable-next-line import/no-unresolved
 import propertyRoutes from './api/routes/property';
-import cors from 'cors';
+
 const app = express();
-const PORT = process.env.PORT || 8000;
-
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
-
-app.use(cors());
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/property', propertyRoutes);
@@ -27,6 +23,6 @@ app.use((error, req, res, next) => {
 });
 
 // eslint-disable-next-line no-console
-app.listen(PORT, () => console.log(`listening on port ${PORT}...`));
+app.listen(PORT);
 
 export default app;

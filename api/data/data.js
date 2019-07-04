@@ -1,33 +1,11 @@
 /* eslint-disable linebreak-style */
 // admin123 password
-export const users = [
-    {
-      id: 1,
-      firstName: 'admin',
-      lastName: 'admin',
-      email: 'admin@gmail.com',
-      address: 'kampala',
-      phoneNumber: '+256758307272',
-      password: '$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',
-      isAdmin: true,
-    },
-    {
-      id: 2,
-      firstName: 'agent',
-      lastName: 'admin',
-      email: 'agent@gmail.com',
-      address: 'kampala',
-      phoneNumber: '+256758307272',
-      password: '$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',
-      isAdmin: true,
-    },
-  ];
-  
+
   export const testdata = [
     {
       firstName: 'vella',
       lastName: 'vella',
-      email: 'vella@gmail.com',
+      email: `${Math.random().toString(35).slice(2)}@gmail.com`,
       address: 'kampala',
       phoneNumber: '07753225633',
       password: 'vella',
@@ -90,32 +68,7 @@ export const users = [
     },
   
   ];
-  
-  export const propertys = [
-    {
-      id: 1,
-      owner: 1,
-      price: 200,
-      city: 'gulu',
-      state: 'nothern',
-      address: 'kampala',
-      type: '3bedrooms',
-      imageUrl: 'images/hose1.jpg',
-      status: 'available',
-    },
-    {
-      id: 2,
-      owner: 3,
-      price: 200,
-      city: 'anyang',
-      state: 'eastern',
-      address: 'kigali',
-      type: 'miniflat',
-      imageUrl: 'images/miniflat.png',
-      status: 'sold',
-    },
-  ];
-  
+
   export const testAds = [
     {
       price: 200,
@@ -137,6 +90,7 @@ export const users = [
     {
       address: 'nansana',
       city: 'kampala',
+      state: 'kampala',
     },
     {
       price: '200',
@@ -172,11 +126,3 @@ export const users = [
       status: 'available',
     },
   ];
-  // const adOne = new Property(1,1,200,'gulu','nothern','3bedrooms','images/hose1.jpg','available');
-  // const adTwo = new Property(2,3,600,'anyang','eastern','kigali','miniflat','images/miniflat.png','sold');
-  
-  // export const propertys = [adOne,adTwo];
-  
-  // const userOne = new Admin(1,'admin','admin','admin@gmail.com','kampala','256758307272','$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',true);
-  // const userTwo = new Admin(1,'agent','admin','agent@gmail.com','kampala','256758307272','$2b$10$ksxz1QB/3qKkQNAvgL4TbusIATCFQBq1qNRIdHDpd9xgvFwLt76nq',true);
-  // export const users = [userOne,userTwo];

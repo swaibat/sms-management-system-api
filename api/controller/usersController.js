@@ -1,37 +1,62 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { User,Agent, Admin } from '../models/users';
-import { users } from '../data/data';
+import { User } from '../models/users';
+import '@babel/polyfill';
 
 dotenv.config();
 
 export class UserController {
-  signUp(req, res) {
-    const {firstName, lastName, email, address, phoneNumber, password } = req.body;
+  async signUp(req, res) {
+    const {
+      firstName, lastName, email, address, phoneNumber, password, isAdmin,
+    } = req.body;
     const hashPassword = bcrypt.hashSync(password, 10);
-    const id = users.length + 1;
-    const user = new User(id, firstName, lastName, email, address, phoneNumber, hashPassword);
-    const agent = new Admin(id, firstName, lastName, email, address, phoneNumber, hashPassword);
-    const { token } = res.locals;
-    user.token = token;
-    agent.token = token;
-
-    if (req.body.isAdmin){
-      users.push(agent);
-      return res.status(201).send({ status: 201, agent });
+    const userObj = new User(firstName, lastName, email, address, phoneNumber, hashPassword, isAdmin);
+    try {
+      const user = await userObj.createUser();
+      const token = await jwt.sign({ email }, process.env.appSecreteKey, { expiresIn: '1hr' });
+      res.status(201).send({
+        status: 201,
+        user: {
+          id: user.rows[0].id,
+          firstName: user.rows[0].firstname,
+          lastName: user.rows[0].lastname,
+          email: user.rows[0].email,
+          address: user.rows[0].address,
+          phoneNumber: user.rows[0].phoneNumber,
+          isAdmin: user.rows[0].isadmin,
+          status: user.rows[0].status,
+          token,
+        },
+      });
+    } catch (error) {
+      res.status(400).send({ status: 400, message: error.message });
     }
-    users.push(user);
-    return res.status(201).send({ status: 201, user });
   }
 
-  // eslint-disable-next-line consistent-return
-  signIn(req, res) {
+
+  async signIn(req, res) {
     const { email, password } = req.body;
-    const { token } = res.locals;
-    const user = users.find(user => {return user.email === email && bcrypt.compareSync(password, user.password) });
-    if (!user) return res.status(401).send({ status: 401, message: 'wrong username or password' });
-    user.token = token;
-    res.status(200).send({ status: 200, user});
+    // check if a user with the given email exist.
+    const user = await User.getUserByEmail(email);
+    if (!user.rows[0]) return res.status(401).send({ status: 401, message: 'wrong username or password' });
+    const passCompare = bcrypt.compareSync(password, user.rows[0].password);
+    if (!passCompare) return res.status(401).send({ status: 401, message: 'wrong username or password' });
+    const token = await jwt.sign({ email: req.body.email }, process.env.appSecreteKey, { expiresIn: '8hr' });
+    res.status(200).send({
+      status: 200,
+      user: {
+        id: user.rows[0].id,
+        firstName: user.rows[0].firstname,
+        lastName: user.rows[0].lastname,
+        email: user.rows[0].email,
+        address: user.rows[0].address,
+        phoneNumber: user.rows[0].phoneNumber,
+        isAdmin: user.rows[0].isadmin,
+        status: user.rows[0].status,
+        token,
+      },
+    });
   }
 }
