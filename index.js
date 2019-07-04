@@ -3,20 +3,13 @@ import express from 'express';
 import userRoutes from './api/routes/users';
 // eslint-disable-next-line import/no-unresolved
 import propertyRoutes from './api/routes/property';
-
+import cors from 'cors';
 const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
 
-app.use((req,res,next)=>{
-  res.header('Access-Control-Allow-Origin','*')
-  res.header('Access-Control-Allow-Headers','*')
-  if (req.method === 'OPTIONS'){
-    res.header('Access-Control-Allow-Methods','POST,PATCH,GET,DELETE,PUT');
-    return res.status(200).json({})
-  }
-})
+app.use(cors);
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/property', propertyRoutes);
