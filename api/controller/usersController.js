@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { User } from '../models/users';
+import store from 'store';
 import '@babel/polyfill';
 
 dotenv.config();
@@ -44,6 +45,7 @@ export class UserController {
     const passCompare = bcrypt.compareSync(password, user.rows[0].password);
     if (!passCompare) return res.status(401).send({ status: 401, message: 'wrong username or password' });
     const token = await jwt.sign({ email: req.body.email }, process.env.appSecreteKey, { expiresIn: '8hr' });
+    store.set('token', token)
     res.status(200).send({
       status: 200,
       user: {
