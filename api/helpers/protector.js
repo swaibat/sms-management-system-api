@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export function verifyToken(req, res, next) {
-  const keys = req.query.token;
+  const keys = localStorage.getItem('token');
   if ( typeof keys === 'undefined' ) return res.status(403).send({ error: 403, message: 'provide a token to get our services' });
   res.locals.token = keys;
   // res.locals.token = keys;
