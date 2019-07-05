@@ -12,8 +12,7 @@
     "start": "babel-node index.js",
     "dev": "nodemon --exec babel-node index.js",
     "test": "nyc mocha",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls ",
-    "install": "babel-node ./api/services/db createTables"
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls "
   },
   "repository": {
     "type": "git",
