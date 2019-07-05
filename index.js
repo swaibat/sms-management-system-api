@@ -3,10 +3,14 @@ import express from 'express';
 import userRoutes from './api/routes/users';
 // eslint-disable-next-line import/no-unresolved
 import propertyRoutes from './api/routes/property';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
 app.use(express.json());
+
+app.use(cors());
 
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/property', propertyRoutes);
