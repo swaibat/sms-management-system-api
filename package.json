@@ -12,7 +12,8 @@
     "start": "babel-node index.js",
     "dev": "nodemon --exec babel-node index.js",
     "test": "nyc mocha",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls "
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls ",
+    "install": "babel-node ./api/services/db createTables"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@hapi/joi": "^15.0.3",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^3.0.6",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
