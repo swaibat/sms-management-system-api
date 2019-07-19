@@ -44,6 +44,7 @@ const flags = `CREATE TABLE IF NOT EXISTS
     )`;
 
  client.connect()
+    .then(() => console.log('connected . . .'))
     .then(() => client.query(users))
     .then(() => client.query(property))
     
