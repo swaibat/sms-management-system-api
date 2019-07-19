@@ -15,10 +15,10 @@ const users = `CREATE TABLE IF NOT EXISTS
         firstName VARCHAR (50) NOT NULL,
         lastName VARCHAR (50) NOT NULL,
         email VARCHAR (50)  NOT NULL,
-        address VARCHAR (50) NOT NULL,
+        address VARCHAR (150) NOT NULL,
         phoneNumber VARCHAR (50) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        isAdmin BOOLEAN DEFAULT false NOT NULL
+        isAgent BOOLEAN DEFAULT false NOT NULL
        )`;
 
 const property = `CREATE TABLE IF NOT EXISTS
@@ -43,12 +43,8 @@ const flags = `CREATE TABLE IF NOT EXISTS
         createdOn timestamp without time zone DEFAULT now() NOT NULL
     )`;
 
-client.connect()
-.then(() => console.log('connected . . .'))
-.then(() => client.query(users))
-.then(() => client.query(property))
-.then(() => client.query(flags))
-.catch(e => console.log(e.message))
-
-
+ client.connect()
+    .then(() => client.query(users))
+    .then(() => client.query(property))
+    
 export default client;

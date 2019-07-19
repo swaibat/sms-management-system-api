@@ -1,20 +1,20 @@
-import { users, propertys } from '../data/data';
 import client from '../services/db';
-export class User {
-  constructor(firstName, lastName, email, address, phoneNumber, password, isAdmin) {
+
+class User {
+  constructor(firstName, lastName, email, address, phoneNumber, password, isAgent) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.address = address;
     this.phoneNumber = phoneNumber;
+    this.isAgent = isAgent;
     this.password = password;
-    this.isAdmin = isAdmin;
   }
 
   createUser() {
-    const userQuery = 'INSERT INTO users(firstName,lastName,email,address,phoneNumber,password,isAdmin) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
-    const values = [this.firstName, this.lastName, this.email, this.address, this.phoneNumber, this.password, this.isAdmin];
-    return client.query(userQuery, values); // returns a promise
+    const userQuery = 'INSERT INTO users(firstName,lastName,email,address,phoneNumber,password,isAgent) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING *';
+    const values = [this.firstName, this.lastName, this.email, this.address, this.phoneNumber, this.password, this.isAgent];
+    return client.query(userQuery, values);
   }
 
   static getUserByEmail(email) {
@@ -23,29 +23,35 @@ export class User {
     return client.query(query, values);
   }
 
-  static queryTypeOfProperty(type) {
-    const query = 'SELECT * FROM property WHERE type=$1 ';
+  static queryTypeOfProperty(type, isagent) {
+    const query = isagent
+      ? 'SELECT * FROM property WHERE type=$1 '
+      : `SELECT * FROM property
+    WHERE type=$1 and status='available' `;
+
     const value = [type];
     return client.query(query, value);
   }
 
-  static allProperty() {
-    const query = 'SELECT * FROM property ';
+
+  static allProperty(isagent) {
+    const query = isagent
+      ? 'SELECT * FROM property '
+      : `SELECT * FROM property
+    WHERE status='available' `;
     return client.query(query);
   }
+
 }
 
-export class Admin extends User {
-  constructor(id, firstName, lastName, email, address, phoneNumber, password) {
-    super(id, firstName, lastName, email, address, phoneNumber, password);
-    this.isAdmin = true;
-  }
+class Agent extends User {
 
   static updateProperty(address, state, city, id) {
     const query = 'UPDATE property SET address=$1,city=$2,state=$3 WHERE id=$4 RETURNING *';
-    const value = [address,city, state, id];
+    const value = [address, city, state, id];
     return client.query(query, value);
   }
+
 
   static markPropertySold(id) {
     const query = 'UPDATE property SET status=$1 WHERE id=$2 RETURNING *';
@@ -59,3 +65,6 @@ export class Admin extends User {
     return client.query(query, value);
   }
 }
+
+export { Agent, User }
+;
